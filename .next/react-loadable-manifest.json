@@ -1,0 +1,84 @@
+{
+  "..\\src\\components\\Portfolio.js -> react-modal-video": {
+    "id": 1239,
+    "files": [
+      "static/chunks/239.f867dba1b29f76f2.js"
+    ]
+  },
+  "..\\src\\layout\\Layout.js -> @/src/components/Portfolio": {
+    "id": 4535,
+    "files": [
+      "static/chunks/391.d334b5f3b031c104.js",
+      "static/chunks/535.ab0422c5b8206b8d.js"
+    ]
+  },
+  "index.js -> @/src/components/Home": {
+    "id": 6422,
+    "files": [
+      "static/chunks/391.d334b5f3b031c104.js",
+      "static/chunks/422.fd04661cac83a4a7.js"
+    ]
+  },
+  "index.js -> @/src/components/Portfolio": {
+    "id": 4535,
+    "files": [
+      "static/chunks/391.d334b5f3b031c104.js",
+      "static/chunks/535.ab0422c5b8206b8d.js"
+    ]
+  },
+  "index_2.js -> @/src/components/Home": {
+    "id": 6422,
+    "files": [
+      "static/chunks/391.d334b5f3b031c104.js",
+      "static/chunks/422.fd04661cac83a4a7.js"
+    ]
+  },
+  "index_2.js -> @/src/components/Portfolio": {
+    "id": 4535,
+    "files": [
+      "static/chunks/391.d334b5f3b031c104.js",
+      "static/chunks/535.ab0422c5b8206b8d.js"
+    ]
+  },
+  "index_3.js -> @/src/components/Home": {
+    "id": 6422,
+    "files": [
+      "static/chunks/391.d334b5f3b031c104.js",
+      "static/chunks/422.fd04661cac83a4a7.js"
+    ]
+  },
+  "index_3.js -> @/src/components/Portfolio": {
+    "id": 4535,
+    "files": [
+      "static/chunks/391.d334b5f3b031c104.js",
+      "static/chunks/535.ab0422c5b8206b8d.js"
+    ]
+  },
+  "index_3.js -> @/src/components/author/Particles": {
+    "id": 4789,
+    "files": [
+      "static/chunks/789.42be9fddaffc104e.js"
+    ]
+  },
+  "index_water.js -> @/src/components/Home": {
+    "id": 6422,
+    "files": [
+      "static/chunks/391.d334b5f3b031c104.js",
+      "static/chunks/422.fd04661cac83a4a7.js"
+    ]
+  },
+  "index_water.js -> @/src/components/Portfolio": {
+    "id": 4535,
+    "files": [
+      "static/chunks/391.d334b5f3b031c104.js",
+      "static/chunks/535.ab0422c5b8206b8d.js"
+    ]
+  },
+  "index_water.js -> @/src/components/author/Water": {
+    "id": 155,
+    "files": [
+      "static/chunks/b637e9a5.506720b6eeca4a89.js",
+      "static/chunks/155.7dc25d87127d4737.js"
+    ]
+  }
+}
