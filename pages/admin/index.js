@@ -2,7 +2,7 @@ import { useState } from "react";
 import { isAuthenticatedRequest } from "@/lib/admin-auth";
 import { getSiteData } from "@/lib/site-data-store";
 
-const AdminPage = ({ initialJson }) => {
+const AdminPage = ({ initialJson, initialError }) => {
   const [jsonText, setJsonText] = useState(initialJson);
   const [message, setMessage] = useState("");
   const [saving, setSaving] = useState(false);
@@ -57,6 +57,12 @@ const AdminPage = ({ initialJson }) => {
           </button>
         </div>
 
+        {initialError ? (
+          <p className="text-[14px] text-[#b91c1c] mb-3 whitespace-pre-wrap">
+            {initialError}
+          </p>
+        ) : null}
+
         <p className="text-[14px] text-[#666] mb-3">
           Asagidaki JSON, Prisma uzerinden tablo bazli olarak Neon Postgres'e yazilir.
         </p>
@@ -101,6 +107,7 @@ export async function getServerSideProps({ req }) {
     return {
       props: {
         initialJson: "{}",
+        initialError: error?.message || "Admin sayfası veri çekemedi.",
       },
     };
   }
