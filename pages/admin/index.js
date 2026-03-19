@@ -58,7 +58,7 @@ const AdminPage = ({ initialJson }) => {
         </div>
 
         <p className="text-[14px] text-[#666] mb-3">
-          Asagidaki JSON, Neon Postgres icindeki `site_data.payload` alanina yazilir.
+          Asagidaki JSON, Prisma uzerinden tablo bazli olarak Neon Postgres'e yazilir.
         </p>
 
         <textarea

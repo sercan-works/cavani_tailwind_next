@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Hero {
+  id              Int      @id @default(1)
+  prefix          String
+  rotatingStrings String[]
+  updatedAt       DateTime @updatedAt
+}
+
+model About {
+  id        Int      @id @default(1)
+  title     String
+  bio       String[]
+  motto     String?
+  updatedAt DateTime @updatedAt
+}
+
+model Music {
+  id         Int      @id
+  title      String
+  youtubeUrl String
+  sortOrder  Int      @unique
+  updatedAt  DateTime @updatedAt
+}
+
+model PortfolioItem {
+  id        Int      @id
+  title     String
+  platform  String
+  url       String
+  cover     String?
+  sortOrder Int      @unique
+  updatedAt DateTime @updatedAt
+}
+
+model TimelineItem {
+  id          Int      @id
+  title       String
+  releaseDate String
+  platform    String
+  url         String
+  cover       String?
+  description String?
+  sortOrder   Int      @unique
+  updatedAt   DateTime @updatedAt
+}

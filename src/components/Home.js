@@ -28,7 +28,13 @@ const Home = () => {
   return (
     <SectionContainer navName="home">
       <div className="cavani_tm_home relative w-full h-full flex items-center">
-        <div className="content pl-[100px]">
+        <div className="content pl-[100px] w-full">
+          <div className="hidden middle:block relative w-full h-[260px] mb-[30px]">
+            <div
+              className="absolute inset-0 bg-no-repeat bg-cover bg-center"
+              style={{ backgroundImage: "url(assets/img/about/1.jpg)" }}
+            />
+          </div>
           <h3 className="name text-[72px] font-bold uppercase mb-[30px]">
            GÂRÎBÎ
           </h3>

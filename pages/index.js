@@ -24,12 +24,6 @@ const Index = () => {
           />
         </div>
         <div className="main_content absolute top-0 right-0 bottom-0 w-[60%] middle:w-full">
-          <div className="hidden middle:block relative w-full h-[260px]">
-            <div
-              className="absolute inset-0 bg-no-repeat bg-cover bg-center"
-              data-img-url="assets/img/about/1.jpg"
-            />
-          </div>
           {/* HOME */}
           <Home />
           {/* HOME */}
