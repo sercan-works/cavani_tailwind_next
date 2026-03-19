@@ -1,455 +1,165 @@
-import Isotope from "isotope-layout";
-import dynamic from "next/dynamic";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { useMemo, useState } from "react";
+import { FaApple, FaSpotify, FaYoutube } from "react-icons/fa";
 import SectionContainer from "../layout/SectionContainer";
-import { dataImage } from "../utils";
-import ImageView from "./ImagePopup";
-import { Detail, Soundcloud } from "./Popup";
+import siteData from "../../data/site.json";
 
 const Portfolio = () => {
-  const ModalVideo = dynamic(
-    () => {
-      return import("react-modal-video");
-    },
-    { ssr: false }
+  const [activePlatform, setActivePlatform] = useState("youtube");
+  const items = siteData?.portfolio || [];
+  const platforms = ["youtube", "spotify", "itunes"];
+  const platformMeta = {
+    youtube: { label: "Youtube", Icon: FaYoutube },
+    spotify: { label: "Spotify", Icon: FaSpotify },
+    itunes: { label: "iTunes", Icon: FaApple },
+  };
+
+  const filteredItems = useMemo(
+    () => items.filter((item) => item.platform === activePlatform),
+    [items, activePlatform]
   );
 
-  // Isotope
-  const isotope = useRef();
-  const [filterKey, setFilterKey] = useState("*");
-  useEffect(() => {
-    const data = document.querySelector(".item__");
-    console.log(data);
-    if (data.length !== 0) {
-      setTimeout(() => {
-        isotope.current = new Isotope(".gallery_zoom", {
-          itemSelector: ".item__",
-          // layoutMode: "fitRows",
-        });
-      }, 3000);
+  const platformLabel = (value) => platformMeta[value]?.label || value;
+  const getYoutubeEmbedUrl = (url) => {
+    if (!url) return null;
+    try {
+      const parsed = new URL(url);
+      if (parsed.hostname.includes("youtu.be")) {
+        const id = parsed.pathname.replace("/", "");
+        return id ? `https://www.youtube.com/embed/${id}` : null;
+      }
+
+      if (parsed.hostname.includes("youtube.com")) {
+        const videoId = parsed.searchParams.get("v");
+        if (videoId) return `https://www.youtube.com/embed/${videoId}`;
+
+        const pathParts = parsed.pathname.split("/");
+        const embedIndex = pathParts.findIndex((part) => part === "embed");
+        if (embedIndex !== -1 && pathParts[embedIndex + 1]) {
+          return `https://www.youtube.com/embed/${pathParts[embedIndex + 1]}`;
+        }
+      }
+    } catch (error) {
+      return null;
     }
 
-    // return () => isotope.current.destroy();
-  }, []);
-  useEffect(() => {
-    if (isotope.current) {
-      filterKey === "*"
-        ? isotope.current.arrange({ filter: `*` })
-        : isotope.current.arrange({ filter: `.${filterKey}` });
-    }
-  }, [filterKey]);
-  const handleFilterKeyChange = (key) => () => {
-    setFilterKey(key);
+    return null;
   };
-  const activeBtn = (value) => (value === filterKey ? "active" : "");
+  const getSpotifyEmbedUrl = (url) => {
+    if (!url) return null;
+    try {
+      const parsed = new URL(url);
+      if (!parsed.hostname.includes("spotify.com")) return null;
 
-  useEffect(() => {
-    setTimeout(() => {
-      dataImage();
-    }, 2000);
-  });
-  const [isOpen, setIsOpen] = useState(false);
-  const [isOpen2, setIsOpen2] = useState(false);
-  const [isOpen3, setIsOpen3] = useState(false);
-  const [isOpen4, setIsOpen4] = useState(false);
+      const cleanPath = parsed.pathname.replace(/^\/+/, "");
+      if (!cleanPath) return null;
+      if (cleanPath.startsWith("embed/")) {
+        return `https://open.spotify.com/${cleanPath}`;
+      }
+      return `https://open.spotify.com/embed/${cleanPath}`;
+    } catch (error) {
+      return null;
+    }
+  };
+  const getItunesEmbedUrl = (url) => {
+    if (!url) return null;
+    try {
+      const parsed = new URL(url);
+      if (!parsed.hostname.includes("music.apple.com")) return null;
+      return `https://embed.music.apple.com${parsed.pathname}${parsed.search || ""}`;
+    } catch (error) {
+      return null;
+    }
+  };
+  const getPlatformEmbedUrl = (item) => {
+    if (!item?.url) return null;
+    if (item.platform === "youtube") return getYoutubeEmbedUrl(item.url);
+    if (item.platform === "spotify") return getSpotifyEmbedUrl(item.url);
+    if (item.platform === "itunes") return getItunesEmbedUrl(item.url);
+    return null;
+  };
 
-  function toggleModalThree() {
-    setIsOpen3(!isOpen3);
-  }
-  function toggleModalFour() {
-    setIsOpen4(!isOpen4);
-  }
   return (
-    <Fragment>
-      <ImageView />
-      <ModalVideo
-        channel="vimeo"
-        autoplay
-        isOpen={isOpen2}
-        videoId="337293658"
-        animationSpeed={300}
-        onClose={() => setIsOpen2(false)}
-        modalVideoClose="mfp-close"
-      />
-      <ModalVideo
-        channel="youtube"
-        autoplay={true}
-        isOpen={isOpen}
-        videoId="7e90gBu4pas"
-        animationSpeed={300}
-        onClose={() => setIsOpen(false)}
-        modalVideoClose="mfp-close"
-      />
-      <Soundcloud isOpen3={isOpen3} toggleModalThree={toggleModalThree} />
-      <Detail isOpen4={isOpen4} toggleModalFour={toggleModalFour} />
-      <SectionContainer navName="portfolio">
-        <div className="section_inner">
-          <div className="cavani_tm_portfolio w-full h-auto clear-both float-left mb-[70px]">
-            <div className="cavani_tm_title w-full h-auto clear-both float-left overflow-hidden">
-              <span className="inline-block relative font-poppins text-[#333] uppercase font-bold tracking-[8px]">
-                Creative Portfolio
-              </span>
-            </div>
-            <div className="portfolio_filter w-full h-auto clear-both float-left text-left relative px-0 pt-[55px] pb-[42px]">
-              <ul>
-                <li className="mr-[40px] inline-block">
-                  <a
-                    href="#"
-                    className="current text-[#333] font-poppins font-medium transition-all duration-300"
-                    data-filter="*"
-                    onClick={handleFilterKeyChange("*")}
-                  >
-                    All
-                  </a>
-                </li>
-                <li className="mr-[40px] inline-block">
-                  <a
-                    href="#"
-                    className="text-[#333] font-poppins font-medium transition-all duration-300"
-                    data-filter=".vimeo"
-                    onClick={handleFilterKeyChange("vimeo")}
-                  >
-                    Vimeo
-                  </a>
-                </li>
-                <li className="mr-[40px] inline-block">
-                  <a
-                    href="#"
-                    className="text-[#333] font-poppins font-medium transition-all duration-300"
-                    data-filter=".youtube"
-                    onClick={handleFilterKeyChange("youtube")}
-                  >
-                    Youtube
-                  </a>
-                </li>
-                <li className="mr-[40px] inline-block">
-                  <a
-                    href="#"
-                    className="text-[#333] font-poppins font-medium transition-all duration-300"
-                    data-filter=".soundcloud"
-                    onClick={handleFilterKeyChange("soundcloud")}
-                  >
-                    Soundcloud
-                  </a>
-                </li>
-                <li className="mr-[40px] inline-block">
-                  <a
-                    href="#"
-                    className="text-[#333] font-poppins font-medium transition-all duration-300"
-                    data-filter=".image"
-                    onClick={handleFilterKeyChange("image")}
-                  >
-                    Image
-                  </a>
-                </li>
-                <li className="inline-block">
-                  <a
-                    href="#"
-                    className="text-[#333] font-poppins font-medium transition-all duration-300"
-                    data-filter=".detail"
-                    onClick={handleFilterKeyChange("detail")}
-                  >
-                    Detail
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div className="portfolio_list w-full h-auto clear-both float-left">
-              <ul className="gallery_zoom ml-[-50px]">
-                <li className="youtube mb-[50px] w-1/2 float-left pl-[50px] item__">
-                  <div className="list_inner w-full h-auto clear-both float-left relative overflow-hidden">
-                    <div className="image relative">
-                      <img
-                        className="relative opacity-0 min-w-full"
-                        src="assets/img/thumbs/1-1.jpg"
-                        alt
-                      />
-                      <div
-                        className="main absolute inset-0 bg-no-repeat bg-cover bg-center"
-                        data-img-url="assets/img/portfolio/1.jpg"
-                      />
-                      <div className="details">
-                        <h3 className="text-[16px] mb-[2px] font-semibold">
-                          Ave Brook
-                        </h3>
-                        <span className="text-[14px]">Youtube</span>
+    <SectionContainer navName="portfolio">
+      <div className="section_inner">
+        <div className="cavani_tm_portfolio w-full h-auto clear-both float-left mb-[70px]">
+          <div className="cavani_tm_title w-full h-auto clear-both float-left overflow-hidden">
+            <span className="inline-block relative font-poppins text-[#333] uppercase font-bold tracking-[8px]">
+              Eserler
+            </span>
+          </div>
+
+          <div className="w-full h-auto clear-both float-left mt-[38px] mb-[6px] gap-2">
+            <ul className="inline-flex items-center gap-2">
+              {platforms.map((platform) => {
+                const { Icon } = platformMeta[platform] || {};
+                return (
+                  <li key={platform}>
+                    <button
+                      type="button"
+                      onClick={() => setActivePlatform(platform)}
+                      className={`inline-flex min-w-[100px] items-center rounded-[8px] px-[10px] py-[6px] text-[15px] font-bold uppercase tracking-[1.2px] leading-none transition-colors duration-300 ${
+                        activePlatform === platform
+                          ? "text-black"
+                          : "text-black/85 hover:text-black"
+                      }`}
+                    >
+                      {Icon && <Icon className="text-[16px] shrink-0" aria-hidden="true" />}
+                      {platformLabel(platform)}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
+          <div className="portfolio_list w-full h-auto clear-both float-left mt-[35px]">
+            <ul className="ml-[-30px] flex flex-wrap">
+              {filteredItems.map((item) => {
+                const embedUrl = getPlatformEmbedUrl(item);
+
+                return (
+                  <li className="mb-[30px] w-1/2 pl-[30px]" key={item.id}>
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="list_inner block w-full h-auto clear-both float-left border border-solid border-[#b9b8c3] p-[20px] transition-all duration-300"
+                    >
+                      <div className="relative mb-[15px] overflow-hidden">
+                        {embedUrl ? (
+                          <iframe
+                            src={embedUrl}
+                            title={item.title}
+                            className="aspect-video w-full"
+                            loading="lazy"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          />
+                        ) : (
+                          <img src={item.cover} alt={item.title} className="w-full h-auto" />
+                        )}
                       </div>
-                      <a
-                        onClick={() => setIsOpen(true)}
-                        className="cavani_tm_full_link popup-youtube"
-                        href="#"
-                      />
-                    </div>
-                  </div>
-                </li>
-                <li className="vimeo mb-[50px] w-1/2 float-left pl-[50px] item__">
-                  <div className="list_inner w-full h-auto clear-both float-left relative overflow-hidden">
-                    <div className="image relative">
-                      <img
-                        className="relative opacity-0 min-w-full"
-                        src="assets/img/thumbs/1-1.jpg"
-                        alt
-                      />
-                      <div
-                        className="main absolute inset-0 bg-no-repeat bg-cover bg-center"
-                        data-img-url="assets/img/portfolio/2.jpg"
-                        onClick={() => setIsOpen2(true)}
-                      />
-                      <div className="details">
-                        <h3 className="text-[16px] mb-[2px] font-semibold">
-                          Kelly Hookin
-                        </h3>
-                        <span className="text-[14px]">Vimeo</span>
-                      </div>
-                      <a
-                        className="cavani_tm_full_link popup-vimeo"
-                        href="#"
-                        onClick={() => setIsOpen2(true)}
-                      />
-                    </div>
-                  </div>
-                </li>
-                <li className="soundcloud mb-[50px] w-1/2 float-left pl-[50px] item__">
-                  <div className="list_inner w-full h-auto clear-both float-left relative overflow-hidden">
-                    <div className="image relative">
-                      <img
-                        className="relative opacity-0 min-w-full"
-                        src="assets/img/thumbs/1-1.jpg"
-                        alt
-                      />
-                      <div
-                        className="main absolute inset-0 bg-no-repeat bg-cover bg-center"
-                        data-img-url="assets/img/portfolio/3.jpg"
-                      />
-                      <div className="details">
-                        <h3 className="text-[16px] mb-[2px] font-semibold">
-                          Ashley Flores
-                        </h3>
-                        <span className="text-[14px]">Soundcloud</span>
-                      </div>
-                      <a
-                        className="cavani_tm_full_link soundcloude_link mfp-iframe audio"
-                        href="#"
-                        onClick={toggleModalThree}
-                      />
-                    </div>
-                  </div>
-                </li>
-                <li className="image mb-[50px] w-1/2 float-left pl-[50px] item__">
-                  <div className="list_inner w-full h-auto clear-both float-left relative overflow-hidden">
-                    <div className="image relative">
-                      <img
-                        className="relative opacity-0 min-w-full"
-                        src="assets/img/thumbs/1-1.jpg"
-                        alt
-                      />
-                      <div
-                        className="main absolute inset-0 bg-no-repeat bg-cover bg-center"
-                        data-img-url="assets/img/portfolio/4.jpg"
-                      />
-                      <div className="details">
-                        <h3 className="text-[16px] mb-[2px] font-semibold">
-                          Alla Gorova
-                        </h3>
-                        <span className="text-[14px]">Image</span>
-                      </div>
-                      <a
-                        className="cavani_tm_full_link zoom"
-                        href="assets/img/portfolio/4.jpg"
-                      />
-                    </div>
-                  </div>
-                </li>
-                <li className="image mb-[50px] w-1/2 float-left pl-[50px] item__">
-                  <div className="list_inner w-full h-auto clear-both float-left relative overflow-hidden">
-                    <div className="image relative">
-                      <img
-                        className="relative opacity-0 min-w-full"
-                        src="assets/img/thumbs/1-1.jpg"
-                        alt
-                      />
-                      <div
-                        className="main absolute inset-0 bg-no-repeat bg-cover bg-center"
-                        data-img-url="assets/img/portfolio/5.jpg"
-                      />
-                      <div className="details">
-                        <h3 className="text-[16px] mb-[2px] font-semibold">
-                          Fele Sweet
-                        </h3>
-                        <span className="text-[14px]">Image</span>
-                      </div>
-                      <a
-                        className="cavani_tm_full_link zoom"
-                        href="assets/img/portfolio/5.jpg"
-                      />
-                    </div>
-                  </div>
-                </li>
-                <li className="detail mb-[50px] w-1/2 float-left pl-[50px] item__">
-                  <div className="list_inner w-full h-auto clear-both float-left relative overflow-hidden">
-                    <div className="image relative">
-                      <img
-                        className="relative opacity-0 min-w-full"
-                        src="assets/img/thumbs/1-1.jpg"
-                        alt
-                      />
-                      <div
-                        className="main absolute inset-0 bg-no-repeat bg-cover bg-center"
-                        data-img-url="assets/img/portfolio/6.jpg"
-                      />
-                      <div className="details">
-                        <h3 className="text-[16px] mb-[2px] font-semibold">
-                          Alice Moon
-                        </h3>
-                        <span className="text-[14px]">Detail</span>
-                      </div>
-                      <a
-                        className="cavani_tm_full_link portfolio_popup"
-                        href="#"
-                        onClick={toggleModalFour}
-                      />
-                    </div>
-                    <div className="hidden_content hidden opacity-0 invisible absolute z-[-111]">
-                      <div className="popup_details w-full h-auto clear-both float-left">
-                        <div className="main_details w-full h-auto clear-both flex mb-[60px]">
-                          <div className="textbox w-[70%] pr-[40px]">
-                            <p className="mb-[15px]">
-                              We live in a world where we need to move quickly
-                              and iterate on our ideas as flexibly as possible.
-                              Building mockups strikes the ideal balance ease of
-                              modification. Building mockups strikes the ideal
-                              balance ease of modification.
-                            </p>
-                            <p>
-                              Mockups are useful both for the creative phase of
-                              the project - for instance when you're trying to
-                              figure out your user flows or the proper visual
-                              hierarchy - and the production phase when they
-                              phase when they will represent the target product.
-                              Building mockups strikes the ideal balance ease of
-                              modification.
-                            </p>
-                          </div>
-                          <div className="detailbox w-[30%] pl-[40px]">
-                            <ul>
-                              <li className="mb-[10px] w-full float-left">
-                                <span className="first font-bold block">
-                                  Client
-                                </span>
-                                <span>Alvaro Morata</span>
-                              </li>
-                              <li className="mb-[10px] w-full float-left">
-                                <span className="first font-bold block">
-                                  Category
-                                </span>
-                                <span>
-                                  <a className="text-[#7d7789]" href="#">
-                                    Detail
-                                  </a>
-                                </span>
-                              </li>
-                              <li className="mb-[10px] w-full float-left">
-                                <span className="first font-bold block">
-                                  Date
-                                </span>
-                                <span>March 07, 2021</span>
-                              </li>
-                              <li className="w-full float-left">
-                                <span className="first font-bold block">
-                                  Share
-                                </span>
-                                <ul className="share relative top-[7px]">
-                                  <li className="mr-[13px] inline-block">
-                                    <a className="text-[#7d7789]" href="#">
-                                      <img
-                                        className="svg"
-                                        src="assets/img/svg/social/facebook.svg"
-                                        alt
-                                      />
-                                    </a>
-                                  </li>
-                                  <li className="mr-[13px] inline-block">
-                                    <a className="text-[#7d7789]" href="#">
-                                      <img
-                                        className="svg"
-                                        src="assets/img/svg/social/twitter.svg"
-                                        alt
-                                      />
-                                    </a>
-                                  </li>
-                                  <li className="inline-block">
-                                    <a className="text-[#7d7789]" href="#">
-                                      <img
-                                        className="svg"
-                                        src="assets/img/svg/social/instagram.svg"
-                                        alt
-                                      />
-                                    </a>
-                                  </li>
-                                </ul>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div className="additional_images w-full clear-both float-left h-auto">
-                          <ul className="ml-[-30px]">
-                            <li className="mb-[30px] float-left pl-[30px]">
-                              <div className="list_inner w-full clear-both float-left h-auto relative">
-                                <div className="my_image relative">
-                                  <img
-                                    className="relative opacity-0 min-w-full"
-                                    src="assets/img/thumbs/4-2.jpg"
-                                    alt
-                                  />
-                                  <div
-                                    className="main absolute inset-0 bg-no-repeat bg-cover bg-center"
-                                    data-img-url="assets/img/portfolio/1.jpg"
-                                  />
-                                </div>
-                              </div>
-                            </li>
-                            <li className="mb-[30px] float-left pl-[30px]">
-                              <div className="list_inner w-full clear-both float-left h-auto relative">
-                                <div className="my_image relative">
-                                  <img
-                                    className="relative opacity-0 min-w-full"
-                                    src="assets/img/thumbs/4-2.jpg"
-                                    alt
-                                  />
-                                  <div
-                                    className="main absolute inset-0 bg-no-repeat bg-cover bg-center"
-                                    data-img-url="assets/img/portfolio/2.jpg"
-                                  />
-                                </div>
-                              </div>
-                            </li>
-                            <li className="mb-[30px] float-left pl-[30px]">
-                              <div className="list_inner w-full clear-both float-left h-auto relative">
-                                <div className="my_image relative">
-                                  <img
-                                    className="relative opacity-0 min-w-full"
-                                    src="assets/img/thumbs/4-2.jpg"
-                                    alt
-                                  />
-                                  <div
-                                    className="main absolute inset-0 bg-no-repeat bg-cover bg-center"
-                                    data-img-url="assets/img/portfolio/3.jpg"
-                                  />
-                                </div>
-                              </div>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
+                      <h3 className="font-medium text-[20px] leading-[1.4] text-[#333] mb-[6px]">
+                        {item.title}
+                      </h3>
+                      <p className="text-[14px] uppercase tracking-[2px] text-[#777]">
+                        {platformLabel(item.platform)}
+                      </p>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+
+            {!filteredItems.length && (
+              <div className="w-full h-auto clear-both float-left mt-[10px]">
+                <p className="text-[#777]">Bu platformda eser bulunamadi.</p>
+              </div>
+            )}
           </div>
         </div>
-      </SectionContainer>
-    </Fragment>
+      </div>
+    </SectionContainer>
   );
 };
 export default Portfolio;

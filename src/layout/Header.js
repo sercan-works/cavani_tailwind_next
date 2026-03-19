@@ -109,7 +109,12 @@ const Header = () => {
                   </a>
                 </li>
                 <li className="mr-[8px] inline-block">
-                  <a className="text-[#333]" href="#">
+                  <a
+                    className="text-[#333]"
+                    href="https://instagram.com/garibiresmi"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     <img
                       className="svg"
                       src="assets/img/svg/social/instagram.svg"

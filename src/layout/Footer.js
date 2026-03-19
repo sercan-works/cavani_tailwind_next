@@ -31,7 +31,12 @@ const Footer = () => {
             </a>
           </li>
           <li className="mr-[15px] inline-block">
-            <a className="text-[#333]" href="#">
+            <a
+              className="text-[#333]"
+              href="https://instagram.com/garibiresmi"
+              target="_blank"
+              rel="noreferrer"
+            >
               <img
                 className="svg inline-block"
                 src="assets/img/svg/social/instagram.svg"

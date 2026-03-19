@@ -137,7 +137,12 @@ export const Detail = ({ isOpen4, toggleModalFour }) => {
                           </a>
                         </li>
                         <li className="inline-block">
-                          <a className="text-[#7d7789]" href="#">
+                          <a
+                            className="text-[#7d7789]"
+                            href="https://instagram.com/garibiresmi"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
                             <img
                               className="svg"
                               src="assets/img/svg/social/instagram.svg"

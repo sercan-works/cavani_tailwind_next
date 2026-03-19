@@ -33,7 +33,7 @@ const Layout = ({ children }) => {
         {/* MAINPART */}
         {children}
         {/* /MAINPART */}
-        {/* FOOTER */}
+        {/* FOOTER - YouTube müzik çalar burada */}
         <Footer />
         {/* /FOOTER */}
         {/* MAGIC CURSOR */}

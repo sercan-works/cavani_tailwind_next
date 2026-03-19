@@ -1,122 +1,16 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import Modal from "react-modal";
 import SectionContainer from "../layout/SectionContainer";
+import siteData from "../../data/site.json";
 
 const News = () => {
-  useEffect(() => {
-    var lists = document.querySelectorAll(".news_list > ul > li");
-    let box = document.querySelector(".cavani_fn_moving_box");
-    if (!box) {
-      let body = document.querySelector("body");
-      let div = document.createElement("div");
-      div.classList.add("cavani_fn_moving_box");
-      body.appendChild(div);
-    }
-
-    lists.forEach((list) => {
-      list.addEventListener("mouseenter", (event) => {
-        box.classList.add("opened");
-        var imgURL = list.getAttribute("data-img");
-        box.style.backgroundImage = `url(${imgURL})`;
-        box.style.top = event.clientY - 50 + "px";
-        console.log(event.clientY);
-        if (imgURL === "") {
-          box.classList.remove("opened");
-          return false;
-        }
-      });
-      list.addEventListener("mouseleave", () => {
-        box.classList.remove("opened");
-      });
-    });
-  }, []);
-
   const [isOpen4, setIsOpen4] = useState(false);
   const [modalContent, setModalContent] = useState({});
   function toggleModalFour(value) {
     setIsOpen4(!isOpen4);
     setModalContent(value);
   }
-  const newsData = [
-    {
-      img: "assets/img/news/1.jpg",
-      tag: "Branding",
-      date: "August 9, 2021",
-      comments: "3 comments",
-      title: "Reasons Why People Use Discord",
-      text1:
-        "Cavani is a leading web design agency with an award-winning design team that creates innovative, effective websites that capture your brand, improve your conversion rates, and maximize your revenue to help grow your business and achieve your goals.",
-      text2:
-        "In today's digital world, your website is the first interaction consumers have with your business. That's why almost 95 percent of a user's first impression relates to web design. It's also why web design services can have an immense impact on your company's bottom line.",
-      text3:
-        "That's why more companies are not only reevaluating their website's design but also partnering with Kura, the web design agency that's driven more than $2.4 billion in revenue for its clients. With over 50 web design awards under our belt, we're confident we can design a custom website that drives sales for your unique business.",
-    },
-    {
-      img: "assets/img/news/2.jpg",
-      tag: "Branding",
-      date: "August 9, 2021",
-      comments: "3 comments",
-      title: "Why We Should Read Fewer Books",
-      text1:
-        "Cavani is a leading web design agency with an award-winning design team that creates innovative, effective websites that capture your brand, improve your conversion rates, and maximize your revenue to help grow your business and achieve your goals.",
-      text2:
-        "In today's digital world, your website is the first interaction consumers have with your business. That's why almost 95 percent of a user's first impression relates to web design. It's also why web design services can have an immense impact on your company's bottom line.",
-      text3:
-        "That's why more companies are not only reevaluating their website's design but also partnering with Kura, the web design agency that's driven more than $2.4 billion in revenue for its clients. With over 50 web design awards under our belt, we're confident we can design a custom website that drives sales for your unique business.",
-    },
-    {
-      img: "assets/img/news/3.jpg",
-      tag: "Branding",
-      date: "August 9, 2021",
-      comments: "3 comments",
-      title: "A Final Farewell to the iPod",
-      text1:
-        "Cavani is a leading web design agency with an award-winning design team that creates innovative, effective websites that capture your brand, improve your conversion rates, and maximize your revenue to help grow your business and achieve your goals.",
-      text2:
-        "In today's digital world, your website is the first interaction consumers have with your business. That's why almost 95 percent of a user's first impression relates to web design. It's also why web design services can have an immense impact on your company's bottom line.",
-      text3:
-        "That's why more companies are not only reevaluating their website's design but also partnering with Kura, the web design agency that's driven more than $2.4 billion in revenue for its clients. With over 50 web design awards under our belt, we're confident we can design a custom website that drives sales for your unique business.",
-    },
-    {
-      img: "assets/img/news/4.jpg",
-      tag: "Branding",
-      date: "August 9, 2021",
-      comments: "3 comments",
-      title: "Dealing with Spring Allergy Symptoms",
-      text1:
-        "Cavani is a leading web design agency with an award-winning design team that creates innovative, effective websites that capture your brand, improve your conversion rates, and maximize your revenue to help grow your business and achieve your goals.",
-      text2:
-        "In today's digital world, your website is the first interaction consumers have with your business. That's why almost 95 percent of a user's first impression relates to web design. It's also why web design services can have an immense impact on your company's bottom line.",
-      text3:
-        "That's why more companies are not only reevaluating their website's design but also partnering with Kura, the web design agency that's driven more than $2.4 billion in revenue for its clients. With over 50 web design awards under our belt, we're confident we can design a custom website that drives sales for your unique business.",
-    },
-    {
-      img: "assets/img/news/5.jpg",
-      tag: "Branding",
-      date: "August 9, 2021",
-      comments: "3 comments",
-      title: "How to Take a Break from Yourself",
-      text1:
-        "Cavani is a leading web design agency with an award-winning design team that creates innovative, effective websites that capture your brand, improve your conversion rates, and maximize your revenue to help grow your business and achieve your goals.",
-      text2:
-        "In today's digital world, your website is the first interaction consumers have with your business. That's why almost 95 percent of a user's first impression relates to web design. It's also why web design services can have an immense impact on your company's bottom line.",
-      text3:
-        "That's why more companies are not only reevaluating their website's design but also partnering with Kura, the web design agency that's driven more than $2.4 billion in revenue for its clients. With over 50 web design awards under our belt, we're confident we can design a custom website that drives sales for your unique business.",
-    },
-    {
-      img: "assets/img/news/6.jpg",
-      tag: "Branding",
-      date: "August 9, 2021",
-      comments: "3 comments",
-      title: "The Age of Extinction Is Here",
-      text1:
-        "Cavani is a leading web design agency with an award-winning design team that creates innovative, effective websites that capture your brand, improve your conversion rates, and maximize your revenue to help grow your business and achieve your goals.",
-      text2:
-        "In today's digital world, your website is the first interaction consumers have with your business. That's why almost 95 percent of a user's first impression relates to web design. It's also why web design services can have an immense impact on your company's bottom line.",
-      text3:
-        "That's why more companies are not only reevaluating their website's design but also partnering with Kura, the web design agency that's driven more than $2.4 billion in revenue for its clients. With over 50 web design awards under our belt, we're confident we can design a custom website that drives sales for your unique business.",
-    },
-  ];
+  const newsData = siteData?.timeline || [];
 
   return (
     <Fragment>
@@ -125,7 +19,7 @@ const News = () => {
           <div className="cavani_tm_news w-full h-auto clear-both float-left mb-[70px]">
             <div className="cavani_tm_title w-full h-auto clear-both float-left overflow-hidden">
               <span className="inline-block relative font-poppins text-[#333] uppercase font-bold tracking-[8px]">
-                Latest News
+                Kronoloji
               </span>
             </div>
             <div className="news_list w-full h-auto clear-both float-left mt-[60px]">
@@ -133,7 +27,7 @@ const News = () => {
                 {newsData.map((news, i) => (
                   <li
                     className="w-full py-[29px] px-0"
-                    data-img={news.img}
+                    data-img={news.cover}
                     key={i}
                   >
                     <div className="list_inner w-full clear-both h-auto flex items-center">
@@ -145,7 +39,7 @@ const News = () => {
                           <ul className="flex items-center flex-wrap mb-[2px]">
                             <li className="relative mr-[10px]">
                               <span className="text-[15px] text-[#777]">
-                                {news.date}
+                                {news.releaseDate}
                               </span>
                             </li>
                             <li className="relative mr-[10px]">
@@ -153,9 +47,12 @@ const News = () => {
                                 <a
                                   className="text-[#777] transition-all duration-300 hover:text-[#000]"
                                   href="#"
-                                  onClick={() => toggleModalFour(news)}
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    toggleModalFour(news);
+                                  }}
                                 >
-                                  Branding
+                                  {news.platform}
                                 </a>
                               </span>
                             </li>
@@ -163,9 +60,11 @@ const News = () => {
                               <span className="text-[15px] text-[#777] pl-[10px]">
                                 <a
                                   className="text-[#777] transition-all duration-300 hover:text-[#000]"
-                                  href="#"
+                                  href={news.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
                                 >
-                                  0 Comments
+                                  Esere git
                                 </a>
                               </span>
                             </li>
@@ -173,7 +72,13 @@ const News = () => {
                         </div>
                         <div className="post_title">
                           <h3 className="m-0 p-0 leading-[1] font-semibold">
-                            <a href="#" onClick={() => toggleModalFour(news)}>
+                            <a
+                              href="#"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                toggleModalFour(news);
+                              }}
+                            >
                               {news.title}
                             </a>
                           </h3>
@@ -200,7 +105,13 @@ const News = () => {
           <div className="cavani_tm_modalbox opened">
             <div className="box_inner">
               <div className="close">
-                <a href="#" onClick={toggleModalFour}>
+                <a
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    toggleModalFour();
+                  }}
+                >
                   <i className="icon-cancel" />
                 </a>
               </div>
@@ -210,8 +121,8 @@ const News = () => {
                     <img src="assets/img/thumbs/4-2.jpg" alt="image" />
                     <div
                       className="main"
-                      data-img-url={modalContent.img}
-                      style={{ backgroundImage: `url(${modalContent.img})` }}
+                      data-img-url={modalContent.cover}
+                      style={{ backgroundImage: `url(${modalContent.cover})` }}
                     />
                   </div>
                   <div className="details">
@@ -219,7 +130,7 @@ const News = () => {
                       <ul className="flex items-center flex-wrap mb-[2px]">
                         <li className="relative mr-[10px]">
                           <span className="text-[15px] text-[#777]">
-                            July 07, 2022
+                            {modalContent.releaseDate}
                           </span>
                         </li>
                         <li className="relative mr-[10px]">
@@ -228,7 +139,7 @@ const News = () => {
                               className="text-[#777] transition-all duration-300 hover:text-[#000]"
                               href="#"
                             >
-                              Branding
+                              {modalContent.platform}
                             </a>
                           </span>
                         </li>
@@ -236,9 +147,11 @@ const News = () => {
                           <span className="text-[15px] text-[#777] pl-[10px]">
                             <a
                               className="text-[#777] transition-all duration-300 hover:text-[#000]"
-                              href="#"
+                              href={modalContent.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
                             >
-                              0 Comments
+                              Esere git
                             </a>
                           </span>
                         </li>
@@ -250,9 +163,7 @@ const News = () => {
                     <div />
                   </div>
                   <div className="text w-full float-left">
-                    <p className="mb-[15px]">{modalContent.text1}</p>
-                    <p className="mb-[15px]">{modalContent.text2}</p>
-                    <p>{modalContent.text3}</p>
+                    <p>{modalContent.description}</p>
                   </div>
                 </div>
               </div>

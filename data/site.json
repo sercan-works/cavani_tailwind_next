@@ -1,0 +1,111 @@
+{
+  "hero": {
+    "prefix": "Creative",
+    "rotatingStrings": [
+      "Sanatçı",
+      "Müzisyen",
+      "Bestekâr",
+      "Söz Yazarı"
+    ]
+  },
+  "about": {
+    "title": "Garîbî Hakkında",
+    "bio": [
+      "10 Temmuz 1996'da Eskişehir'de doğdu Garîbî. Asıl ismi Muhammed. 2017'de müzik hayatına amatör olarak başladı.",
+      "2019'a kadar 10'a yakın rap tarzında eserler inşa etti. Ve 2019'da farklı bir tarza geçerek ilk resmi eseri olan \"Rüzgar\" isimli şarkısını yayınladı.",
+      "Şu anda 1,5 milyon izlenmesi olan bu eserle bir başarı yakaladı Garîbî. Ve müzikal anlamda gelişimini sürdürerek o günden bugüne kadar çeşitli eserlere imza attı.",
+      "Eserlerinde aşkı, sevgiyi ve güzel ahlakı işleyen Garîbî, farklı konuları da zamanla işleyeceğini, inşa ettiği eserlerindeki farklılıkları ile sevenlerine ispat etmiştir."
+    ],
+    "motto": "Dahası hep olacak"
+  },
+  "music": [
+    {
+      "id": 1,
+      "title": "Eser 1",
+      "youtubeUrl": "https://www.youtube.com/watch?v=KywfPJFtZZE"
+    },
+    {
+      "id": 2,
+      "title": "Eser 2",
+      "youtubeUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    },
+    {
+      "id": 3,
+      "title": "Eser 3",
+      "youtubeUrl": "https://www.youtube.com/watch?v=9bZkp7q19f0"
+    }
+  ],
+  "portfolio": [
+    {
+      "id": 1,
+      "title": "Rüzgar (Official)",
+      "platform": "youtube",
+      "url": "https://www.youtube.com/watch?v=KywfPJFtZZE",
+      "cover": "assets/img/portfolio/1.jpg"
+    },
+    {
+      "id": 2,
+      "title": "Garîbî Mix Vol.1",
+      "platform": "youtube",
+      "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "cover": "assets/img/portfolio/2.jpg"
+    },
+    {
+      "id": 3,
+      "title": "Garîbî Spotify Single",
+      "platform": "spotify",
+      "url": "https://open.spotify.com/",
+      "cover": "assets/img/portfolio/3.jpg"
+    },
+    {
+      "id": 4,
+      "title": "Garîbî Spotify Sessions",
+      "platform": "spotify",
+      "url": "https://open.spotify.com/",
+      "cover": "assets/img/portfolio/4.jpg"
+    },
+    {
+      "id": 5,
+      "title": "Garîbî iTunes Track",
+      "platform": "itunes",
+      "url": "https://music.apple.com/",
+      "cover": "assets/img/portfolio/5.jpg"
+    },
+    {
+      "id": 6,
+      "title": "Garîbî iTunes EP",
+      "platform": "itunes",
+      "url": "https://music.apple.com/",
+      "cover": "assets/img/portfolio/6.jpg"
+    }
+  ],
+  "timeline": [
+    {
+      "id": 1,
+      "title": "Rüzgar",
+      "releaseDate": "2019-07-12",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=KywfPJFtZZE",
+      "cover": "assets/img/news/1.jpg",
+      "description": "Garîbî'nin ilk resmi eseri olarak yayınlandı ve geniş kitlelere ulaştı."
+    },
+    {
+      "id": 2,
+      "title": "Eser 2",
+      "releaseDate": "2020-11-08",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "cover": "assets/img/news/2.jpg",
+      "description": "Müzikal çizgisini devam ettirdiği ikinci dönem çalışması."
+    },
+    {
+      "id": 3,
+      "title": "Eser 3",
+      "releaseDate": "2022-05-20",
+      "platform": "YouTube",
+      "url": "https://www.youtube.com/watch?v=9bZkp7q19f0",
+      "cover": "assets/img/news/3.jpg",
+      "description": "Farklı tema ve düzenlemelerle hazırlanan yeni dönem eseri."
+    }
+  ]
+}

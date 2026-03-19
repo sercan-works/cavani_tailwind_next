@@ -1,13 +1,20 @@
 import { useEffect, useRef } from "react";
 import Typed from "typed.js";
+import siteData from "../../data/site.json";
 
 const TypingAnimation = () => {
-  // Create Ref element.
   const el = useRef(null);
+  const prefix = siteData?.hero?.prefix || "Creative";
+  const rotatingStrings =
+    siteData?.hero?.rotatingStrings?.length > 0
+      ? siteData.hero.rotatingStrings
+      : ["Sanatçı", "Müzisyen"];
 
   useEffect(() => {
+    if (!el.current) return;
+
     const typed = new Typed(el.current, {
-      strings: ["lorem ipsum", "dolor sit amet", "consectetur adipiscing elit"], // Strings to display
+      strings: rotatingStrings,
       typeSpeed: 100,
       backSpeed: 100,
       backDelay: 100,
@@ -16,17 +23,15 @@ const TypingAnimation = () => {
       showCursor: false,
     });
 
-    // Destropying
     return () => {
       typed.destroy();
     };
   }, []);
+
   return (
     <h3 className="job text-[25px] mb-[35px] font-light">
       <span className="cd-headline clip">
-        {" "}
-        {/* ANIMATE TEXT VALUES: zoom, rotate-1, letters type, letters rotate-2, loading-bar, slide, clip, letters rotate-3, letters scale, push,  */}
-        <span className="blc">Creative</span>{" "}
+        <span className="blc">{prefix}</span>{" "}
         <span className="cd-words-wrapper">
           <b className="is-visible" ref={el}></b>
         </span>

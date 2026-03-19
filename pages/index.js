@@ -17,13 +17,19 @@ const Index = () => {
   return (
     <Layout>
       <div className="cavani_tm_mainpart absolute inset-[70px] overflow-hidden middle:inset-x-0 middle:bottom-0 middle:top-[55px]">
-        <div className="author_image absolute top-0 left-0 bottom-0 w-[40%] z-[15]">
+        <div className="author_image absolute top-0 left-0 bottom-0 w-[40%] z-[15] middle:hidden">
           <div
             className="main absolute inset-0 bg-no-repeat bg-cover bg-center"
             data-img-url="assets/img/about/1.jpg"
           />
         </div>
-        <div className="main_content absolute top-0 right-0 bottom-0 w-[60%]">
+        <div className="main_content absolute top-0 right-0 bottom-0 w-[60%] middle:w-full">
+          <div className="hidden middle:block relative w-full h-[260px]">
+            <div
+              className="absolute inset-0 bg-no-repeat bg-cover bg-center"
+              data-img-url="assets/img/about/1.jpg"
+            />
+          </div>
           {/* HOME */}
           <Home />
           {/* HOME */}
