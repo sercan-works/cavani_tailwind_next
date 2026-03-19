@@ -1,9 +1,10 @@
 import { useMemo, useState } from "react";
 import { FaApple, FaSpotify, FaYoutube } from "react-icons/fa";
 import SectionContainer from "../layout/SectionContainer";
-import siteData from "../../data/site.json";
+import { useSiteData } from "../context/SiteDataContext";
 
 const Portfolio = () => {
+  const { siteData } = useSiteData();
   const [activePlatform, setActivePlatform] = useState("youtube");
   const items = siteData?.portfolio || [];
   const platforms = ["youtube", "spotify", "itunes"];

@@ -1,9 +1,10 @@
 import { Fragment, useState } from "react";
 import Modal from "react-modal";
 import SectionContainer from "../layout/SectionContainer";
-import siteData from "../../data/site.json";
+import { useSiteData } from "../context/SiteDataContext";
 
 const News = () => {
+  const { siteData } = useSiteData();
   const [isOpen4, setIsOpen4] = useState(false);
   const [modalContent, setModalContent] = useState({});
   function toggleModalFour(value) {

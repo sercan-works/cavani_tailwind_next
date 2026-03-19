@@ -1,7 +1,7 @@
 import { useState } from "react";
 import dynamic from "next/dynamic";
-import siteData from "../../data/site.json";
 import { FaPlay, FaPause } from "react-icons/fa";
+import { useSiteData } from "../context/SiteDataContext";
 
 
 const ReactPlayer = dynamic(
@@ -16,6 +16,7 @@ const defaultTrack = {
 };
 
 const MusicPlayer = () => {
+  const { siteData } = useSiteData();
   const firstTrack = siteData?.music?.[0] || defaultTrack;
   const youtubeUrl = firstTrack?.youtubeUrl || "";
   const [isPlaying, setIsPlaying] = useState(false);

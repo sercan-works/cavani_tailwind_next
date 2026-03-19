@@ -1,7 +1,8 @@
 import SectionContainer from "../layout/SectionContainer";
-import siteData from "../../data/site.json";
+import { useSiteData } from "../context/SiteDataContext";
 
 const About = () => {
+  const { siteData } = useSiteData();
   const aboutData = siteData?.about || {};
 
   return (
