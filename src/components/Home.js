@@ -3,6 +3,8 @@ import { useContext, useEffect, useRef } from "react";
 import { CavaniContext } from "../Context";
 import SectionContainer from "../layout/SectionContainer";
 import TypingAnimation from "./AnimationText";
+import Image from "next/image";
+import MusicPlayer from "./MusicPlayer";
 
 const Home = () => {
   const { navChange } = useContext(CavaniContext);
@@ -29,12 +31,15 @@ const Home = () => {
     <SectionContainer navName="home">
       <div className="cavani_tm_home relative w-full h-full flex items-center">
         <div className="content pl-[100px] w-full">
+        <Image src="/assets/img/about/1.jpg" width={1000} height={1000} alt="Gârîbî" className="hidden middle:block w-full h-full object-cover" />
+
           <div className="hidden middle:block relative w-full h-[260px] mb-[30px]">
             <div
               className="absolute inset-0 bg-no-repeat bg-cover bg-center"
               style={{ backgroundImage: "url(assets/img/about/1.jpg)" }}
             />
           </div>
+
           <h3 className="name text-[72px] font-bold uppercase mb-[30px]">
            GÂRÎBÎ
           </h3>
@@ -44,10 +49,14 @@ const Home = () => {
             <a href="#contact" onClick={() => navChange("portfolio")}>
               Eserlerimiz
             </a>
+          
+          <div className="flex items-center h-[70px]">
+              <MusicPlayer />
+            </div>
           </div>
         </div>
       </div>
     </SectionContainer>
-  );
-};
-export default Home;
+  )
+}
+export default Home
