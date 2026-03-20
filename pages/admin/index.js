@@ -98,14 +98,19 @@ const AdminPage = ({ initialData, initialError }) => {
   };
 
   return (
-    <main className="min-h-screen bg-[#f5f5f5] p-5">
-      <div className="max-w-[1100px] mx-auto bg-white border border-[#ddd] rounded-[10px] p-5">
-        <div className="flex items-center justify-between mb-4">
-          <h1 className="text-[24px] font-semibold text-[#222]">Site Data Admin</h1>
+    <main className="min-h-screen bg-slate-50 p-5">
+      <div className="max-w-[1200px] mx-auto bg-white border border-slate-200 rounded-2xl shadow-sm p-5">
+        <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-200">
+          <div>
+            <h1 className="text-[22px] font-semibold text-slate-900">Site Data Admin</h1>
+            <p className="text-[13px] text-slate-500 mt-1">
+              Neon Postgres'e kaydetmek icin tabloları düzenleyin.
+            </p>
+          </div>
           <button
             type="button"
             onClick={handleLogout}
-            className="h-[38px] px-4 rounded border border-[#ccc] text-[14px]"
+            className="h-[40px] px-4 rounded-xl bg-slate-900 text-white text-[14px] hover:bg-slate-800 transition-colors"
           >
             Cikis
           </button>
@@ -117,9 +122,9 @@ const AdminPage = ({ initialData, initialError }) => {
           </p>
         ) : null}
 
-        <div className="grid grid-cols-1 md:grid-cols-[220px,1fr] gap-4">
-          <div className="bg-[#f7f7f7] border border-[#eee] rounded-[10px] p-3">
-            <div className="text-[12px] uppercase tracking-[.12em] text-[#666] px-2 mb-2">
+        <div className="grid grid-cols-1 md:grid-cols-[240px,1fr] gap-4">
+          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-3 sticky top-[90px] self-start">
+            <div className="text-[12px] uppercase tracking-[.12em] text-slate-500 px-2 mb-2 font-semibold">
               Menüler
             </div>
             {[
@@ -133,10 +138,10 @@ const AdminPage = ({ initialData, initialError }) => {
                 key={key}
                 type="button"
                 onClick={() => setActiveTab(key)}
-                className={`w-full text-left px-3 py-2 rounded-[8px] mb-2 border transition-all ${
+                className={`w-full text-left px-3 py-2 rounded-xl mb-2 border transition-all ${
                   activeTab === key
-                    ? "bg-white border-[#111] text-[#111]"
-                    : "bg-transparent border-transparent text-[#444] hover:bg-white hover:border-[#ddd]"
+                    ? "bg-slate-900 border-slate-900 text-white"
+                    : "bg-transparent border-transparent text-slate-600 hover:bg-white hover:border-slate-200"
                 }`}
               >
                 {label}
@@ -144,13 +149,13 @@ const AdminPage = ({ initialData, initialError }) => {
             ))}
           </div>
 
-          <div className="bg-white border border-[#ddd] rounded-[10px] p-4">
+          <div className="bg-white border border-slate-200 rounded-2xl p-4">
             {activeTab === "hero" ? (
               <div>
                 <div className="mb-3">
                   <label className="text-[13px] text-[#555]">Prefix</label>
                   <input
-                    className="w-full h-[42px] mt-1 border border-[#ccc] rounded px-3"
+                    className="w-full h-[42px] mt-1 border border-slate-200 rounded-xl px-3 bg-white focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                     value={hero?.prefix || ""}
                     onChange={(e) =>
                       setHero((prev) => ({
@@ -182,9 +187,9 @@ const AdminPage = ({ initialData, initialError }) => {
                   </button>
                 </div>
 
-                <div className="overflow-auto border border-[#eee] rounded-[10px]">
-                  <table className="w-full text-left text-[13px]">
-                    <thead className="bg-[#fafafa] border-b border-[#eee]">
+                <div className="overflow-auto rounded-xl border border-slate-200">
+                  <table className="w-full text-left text-sm">
+                    <thead className="bg-slate-100 border-b border-slate-200">
                       <tr>
                         <th className="p-3 w-[70px]">#</th>
                         <th className="p-3">Metin</th>
@@ -193,11 +198,11 @@ const AdminPage = ({ initialData, initialError }) => {
                     </thead>
                     <tbody>
                       {(hero?.rotatingStrings || []).map((s, idx) => (
-                        <tr key={`${idx}`}>
+                        <tr key={`${idx}`} className="hover:bg-slate-50">
                           <td className="p-3">{idx + 1}</td>
                           <td className="p-3">
                             <input
-                              className="w-full h-[38px] border border-[#ccc] rounded px-3"
+                              className="w-full h-[38px] border border-slate-200 rounded-xl px-3 bg-white focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                               value={s}
                               onChange={(e) =>
                                 setHero((prev) => {
@@ -222,7 +227,7 @@ const AdminPage = ({ initialData, initialError }) => {
                                     ),
                                   }))
                                 }
-                                className="h-[34px] px-2 rounded border border-[#ddd] text-[12px] disabled:opacity-50"
+                                className="h-[34px] px-2 rounded-xl border border-slate-200 text-[12px] text-slate-700 hover:bg-slate-100 disabled:opacity-40 disabled:hover:bg-transparent"
                                 disabled={idx === 0}
                               >
                                 Yukarı
@@ -239,7 +244,7 @@ const AdminPage = ({ initialData, initialError }) => {
                                     ),
                                   }))
                                 }
-                                className="h-[34px] px-2 rounded border border-[#ddd] text-[12px] disabled:opacity-50"
+                                className="h-[34px] px-2 rounded-xl border border-slate-200 text-[12px] text-slate-700 hover:bg-slate-100 disabled:opacity-40 disabled:hover:bg-transparent"
                                 disabled={idx === (hero?.rotatingStrings?.length || 0) - 1}
                               >
                                 Aşağı
@@ -253,7 +258,7 @@ const AdminPage = ({ initialData, initialError }) => {
                                     return { ...(prev || {}), rotatingStrings: next };
                                   })
                                 }
-                                className="h-[34px] px-2 rounded border border-[#ddd] text-[12px] hover:bg-[#fff5f5]"
+                                className="h-[34px] px-2 rounded-xl border border-slate-200 text-[12px] text-rose-700 hover:bg-rose-50"
                               >
                                 Sil
                               </button>
@@ -280,7 +285,7 @@ const AdminPage = ({ initialData, initialError }) => {
                   <div>
                     <label className="text-[13px] text-[#555]">Başlık</label>
                     <input
-                      className="w-full h-[42px] mt-1 border border-[#ccc] rounded px-3"
+                      className="w-full h-[42px] mt-1 border border-slate-200 rounded-xl px-3 bg-white focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                       value={about?.title || ""}
                       onChange={(e) =>
                         setAbout((prev) => ({
@@ -293,7 +298,7 @@ const AdminPage = ({ initialData, initialError }) => {
                   <div>
                     <label className="text-[13px] text-[#555]">Motto</label>
                     <input
-                      className="w-full h-[42px] mt-1 border border-[#ccc] rounded px-3"
+                      className="w-full h-[42px] mt-1 border border-slate-200 rounded-xl px-3 bg-white focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                       value={about?.motto || ""}
                       onChange={(e) =>
                         setAbout((prev) => ({
@@ -321,9 +326,9 @@ const AdminPage = ({ initialData, initialError }) => {
                   </button>
                 </div>
 
-                <div className="overflow-auto border border-[#eee] rounded-[10px]">
-                  <table className="w-full text-left text-[13px]">
-                    <thead className="bg-[#fafafa] border-b border-[#eee]">
+                <div className="overflow-auto rounded-xl border border-slate-200">
+                  <table className="w-full text-left text-sm">
+                    <thead className="bg-slate-100 border-b border-slate-200">
                       <tr>
                         <th className="p-3 w-[70px]">#</th>
                         <th className="p-3">Metin</th>
@@ -332,11 +337,11 @@ const AdminPage = ({ initialData, initialError }) => {
                     </thead>
                     <tbody>
                       {(about?.bio || []).map((s, idx) => (
-                        <tr key={`${idx}`}>
+                        <tr key={`${idx}`} className="hover:bg-slate-50">
                           <td className="p-3">{idx + 1}</td>
                           <td className="p-3">
                             <input
-                              className="w-full h-[38px] border border-[#ccc] rounded px-3"
+                              className="w-full h-[38px] border border-slate-200 rounded-xl px-3 bg-white focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                               value={s}
                               onChange={(e) =>
                                 setAbout((prev) => {
@@ -357,7 +362,7 @@ const AdminPage = ({ initialData, initialError }) => {
                                     bio: moveRow(prev?.bio || [], idx, idx - 1),
                                   }))
                                 }
-                                className="h-[34px] px-2 rounded border border-[#ddd] text-[12px] disabled:opacity-50"
+                                className="h-[34px] px-2 rounded-xl border border-slate-200 text-[12px] text-slate-700 hover:bg-slate-100 disabled:opacity-40 disabled:hover:bg-transparent"
                                 disabled={idx === 0}
                               >
                                 Yukarı
@@ -370,7 +375,7 @@ const AdminPage = ({ initialData, initialError }) => {
                                     bio: moveRow(prev?.bio || [], idx, idx + 1),
                                   }))
                                 }
-                                className="h-[34px] px-2 rounded border border-[#ddd] text-[12px] disabled:opacity-50"
+                                className="h-[34px] px-2 rounded-xl border border-slate-200 text-[12px] text-slate-700 hover:bg-slate-100 disabled:opacity-40 disabled:hover:bg-transparent"
                                 disabled={idx === (about?.bio?.length || 0) - 1}
                               >
                                 Aşağı
@@ -384,7 +389,7 @@ const AdminPage = ({ initialData, initialError }) => {
                                     return { ...(prev || {}), bio: next };
                                   })
                                 }
-                                className="h-[34px] px-2 rounded border border-[#ddd] text-[12px] hover:bg-[#fff5f5]"
+                                className="h-[34px] px-2 rounded-xl border border-slate-200 text-[12px] text-rose-700 hover:bg-rose-50"
                               >
                                 Sil
                               </button>
@@ -419,15 +424,15 @@ const AdminPage = ({ initialData, initialError }) => {
                         { id: undefined, title: "", youtubeUrl: "" },
                       ])
                     }
-                    className="h-[34px] px-3 rounded bg-[#111] text-white text-[13px] hover:bg-[#000]"
+                    className="h-[34px] px-3 rounded-xl bg-slate-900 text-white text-[13px] hover:bg-slate-800"
                   >
                     Yeni Kayıt
                   </button>
                 </div>
 
-                <div className="overflow-auto border border-[#eee] rounded-[10px]">
-                  <table className="w-full text-left text-[13px]">
-                    <thead className="bg-[#fafafa] border-b border-[#eee]">
+                <div className="overflow-auto rounded-xl border border-slate-200">
+                  <table className="w-full text-left text-sm">
+                    <thead className="bg-slate-100 border-b border-slate-200">
                       <tr>
                         <th className="p-3 w-[70px]">Sıra</th>
                         <th className="p-3 w-[70px]">ID</th>
@@ -438,12 +443,15 @@ const AdminPage = ({ initialData, initialError }) => {
                     </thead>
                     <tbody>
                       {(music || []).map((row, idx) => (
-                        <tr key={`${row?.id ?? idx}-${idx}`}>
+                        <tr
+                          key={`${row?.id ?? idx}-${idx}`}
+                          className="hover:bg-slate-50"
+                        >
                           <td className="p-3">{idx + 1}</td>
                           <td className="p-3 text-[#666]">{row?.id ?? idx + 1}</td>
                           <td className="p-3">
                             <input
-                              className="w-full h-[38px] border border-[#ccc] rounded px-3"
+                              className="w-full h-[38px] border border-slate-200 rounded-xl px-3 bg-white focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                               value={row?.title || ""}
                               onChange={(e) => {
                                 const v = e.target.value;
@@ -457,7 +465,7 @@ const AdminPage = ({ initialData, initialError }) => {
                           </td>
                           <td className="p-3">
                             <input
-                              className="w-full h-[38px] border border-[#ccc] rounded px-3"
+                              className="w-full h-[38px] border border-slate-200 rounded-xl px-3 bg-white focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                               value={row?.youtubeUrl || ""}
                               onChange={(e) => {
                                 const v = e.target.value;
@@ -477,7 +485,7 @@ const AdminPage = ({ initialData, initialError }) => {
                               <button
                                 type="button"
                                 onClick={() => setMusic((prev) => moveRow(prev || [], idx, idx - 1))}
-                                className="h-[34px] px-2 rounded border border-[#ddd] text-[12px] disabled:opacity-50"
+                                className="h-[34px] px-2 rounded-xl border border-slate-200 text-[12px] text-slate-700 hover:bg-slate-100 disabled:opacity-40 disabled:hover:bg-transparent"
                                 disabled={idx === 0}
                               >
                                 Yukarı
@@ -485,7 +493,7 @@ const AdminPage = ({ initialData, initialError }) => {
                               <button
                                 type="button"
                                 onClick={() => setMusic((prev) => moveRow(prev || [], idx, idx + 1))}
-                                className="h-[34px] px-2 rounded border border-[#ddd] text-[12px] disabled:opacity-50"
+                                className="h-[34px] px-2 rounded-xl border border-slate-200 text-[12px] text-slate-700 hover:bg-slate-100 disabled:opacity-40 disabled:hover:bg-transparent"
                                 disabled={idx === (music || []).length - 1}
                               >
                                 Aşağı
@@ -499,7 +507,7 @@ const AdminPage = ({ initialData, initialError }) => {
                                     return next;
                                   })
                                 }
-                                className="h-[34px] px-2 rounded border border-[#ddd] text-[12px] hover:bg-[#fff5f5]"
+                                className="h-[34px] px-2 rounded-xl border border-slate-200 text-[12px] text-rose-700 hover:bg-rose-50"
                               >
                                 Sil
                               </button>
@@ -540,15 +548,15 @@ const AdminPage = ({ initialData, initialError }) => {
                         },
                       ])
                     }
-                    className="h-[34px] px-3 rounded bg-[#111] text-white text-[13px] hover:bg-[#000]"
+                    className="h-[34px] px-3 rounded-xl bg-slate-900 text-white text-[13px] hover:bg-slate-800"
                   >
                     Yeni Kayıt
                   </button>
                 </div>
 
-                <div className="overflow-auto border border-[#eee] rounded-[10px]">
-                  <table className="w-full text-left text-[13px]">
-                    <thead className="bg-[#fafafa] border-b border-[#eee]">
+                <div className="overflow-auto rounded-xl border border-slate-200">
+                  <table className="w-full text-left text-sm">
+                    <thead className="bg-slate-100 border-b border-slate-200">
                       <tr>
                         <th className="p-3 w-[70px]">Sıra</th>
                         <th className="p-3 w-[70px]">ID</th>
@@ -561,12 +569,15 @@ const AdminPage = ({ initialData, initialError }) => {
                     </thead>
                     <tbody>
                       {(portfolio || []).map((row, idx) => (
-                        <tr key={`${row?.id ?? idx}-${idx}`}>
+                        <tr
+                          key={`${row?.id ?? idx}-${idx}`}
+                          className="hover:bg-slate-50"
+                        >
                           <td className="p-3">{idx + 1}</td>
                           <td className="p-3 text-[#666]">{row?.id ?? idx + 1}</td>
                           <td className="p-3">
                             <input
-                              className="w-full h-[38px] border border-[#ccc] rounded px-3"
+                              className="w-full h-[38px] border border-slate-200 rounded-xl px-3 bg-white focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                               value={row?.title || ""}
                               onChange={(e) => {
                                 const v = e.target.value;
@@ -580,7 +591,7 @@ const AdminPage = ({ initialData, initialError }) => {
                           </td>
                           <td className="p-3">
                             <input
-                              className="w-full h-[38px] border border-[#ccc] rounded px-3"
+                              className="w-full h-[38px] border border-slate-200 rounded-xl px-3 bg-white focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                               value={row?.platform || ""}
                               onChange={(e) => {
                                 const v = e.target.value;
@@ -597,7 +608,7 @@ const AdminPage = ({ initialData, initialError }) => {
                           </td>
                           <td className="p-3">
                             <input
-                              className="w-full h-[38px] border border-[#ccc] rounded px-3"
+                              className="w-full h-[38px] border border-slate-200 rounded-xl px-3 bg-white focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                               value={row?.url || ""}
                               onChange={(e) => {
                                 const v = e.target.value;
@@ -611,7 +622,7 @@ const AdminPage = ({ initialData, initialError }) => {
                           </td>
                           <td className="p-3">
                             <input
-                              className="w-full h-[38px] border border-[#ccc] rounded px-3"
+                              className="w-full h-[38px] border border-slate-200 rounded-xl px-3 bg-white focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                               value={row?.cover || ""}
                               onChange={(e) => {
                                 const v = e.target.value;
@@ -630,7 +641,7 @@ const AdminPage = ({ initialData, initialError }) => {
                                 onClick={() =>
                                   setPortfolio((prev) => moveRow(prev || [], idx, idx - 1))
                                 }
-                                className="h-[34px] px-2 rounded border border-[#ddd] text-[12px] disabled:opacity-50"
+                                className="h-[34px] px-2 rounded-xl border border-slate-200 text-[12px] text-slate-700 hover:bg-slate-100 disabled:opacity-40 disabled:hover:bg-transparent"
                                 disabled={idx === 0}
                               >
                                 Yukarı
@@ -640,7 +651,7 @@ const AdminPage = ({ initialData, initialError }) => {
                                 onClick={() =>
                                   setPortfolio((prev) => moveRow(prev || [], idx, idx + 1))
                                 }
-                                className="h-[34px] px-2 rounded border border-[#ddd] text-[12px] disabled:opacity-50"
+                                className="h-[34px] px-2 rounded-xl border border-slate-200 text-[12px] text-slate-700 hover:bg-slate-100 disabled:opacity-40 disabled:hover:bg-transparent"
                                 disabled={idx === (portfolio || []).length - 1}
                               >
                                 Aşağı
@@ -654,7 +665,7 @@ const AdminPage = ({ initialData, initialError }) => {
                                     return next;
                                   })
                                 }
-                                className="h-[34px] px-2 rounded border border-[#ddd] text-[12px] hover:bg-[#fff5f5]"
+                                className="h-[34px] px-2 rounded-xl border border-slate-200 text-[12px] text-rose-700 hover:bg-rose-50"
                               >
                                 Sil
                               </button>
@@ -697,15 +708,15 @@ const AdminPage = ({ initialData, initialError }) => {
                         },
                       ])
                     }
-                    className="h-[34px] px-3 rounded bg-[#111] text-white text-[13px] hover:bg-[#000]"
+                    className="h-[34px] px-3 rounded-xl bg-slate-900 text-white text-[13px] hover:bg-slate-800"
                   >
                     Yeni Kayıt
                   </button>
                 </div>
 
-                <div className="overflow-auto border border-[#eee] rounded-[10px]">
-                  <table className="w-full text-left text-[13px]">
-                    <thead className="bg-[#fafafa] border-b border-[#eee]">
+                <div className="overflow-auto rounded-xl border border-slate-200">
+                  <table className="w-full text-left text-sm">
+                    <thead className="bg-slate-100 border-b border-slate-200">
                       <tr>
                         <th className="p-3 w-[70px]">Sıra</th>
                         <th className="p-3 w-[70px]">ID</th>
@@ -720,12 +731,15 @@ const AdminPage = ({ initialData, initialError }) => {
                     </thead>
                     <tbody>
                       {(timeline || []).map((row, idx) => (
-                        <tr key={`${row?.id ?? idx}-${idx}`}>
+                        <tr
+                          key={`${row?.id ?? idx}-${idx}`}
+                          className="hover:bg-slate-50"
+                        >
                           <td className="p-3">{idx + 1}</td>
                           <td className="p-3 text-[#666]">{row?.id ?? idx + 1}</td>
                           <td className="p-3">
                             <input
-                              className="w-full h-[38px] border border-[#ccc] rounded px-3"
+                              className="w-full h-[38px] border border-slate-200 rounded-xl px-3 bg-white focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                               value={row?.title || ""}
                               onChange={(e) => {
                                 const v = e.target.value;
@@ -739,7 +753,7 @@ const AdminPage = ({ initialData, initialError }) => {
                           </td>
                           <td className="p-3">
                             <input
-                              className="w-full h-[38px] border border-[#ccc] rounded px-3"
+                              className="w-full h-[38px] border border-slate-200 rounded-xl px-3 bg-white focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                               value={row?.releaseDate || ""}
                               onChange={(e) => {
                                 const v = e.target.value;
@@ -756,7 +770,7 @@ const AdminPage = ({ initialData, initialError }) => {
                           </td>
                           <td className="p-3">
                             <input
-                              className="w-full h-[38px] border border-[#ccc] rounded px-3"
+                              className="w-full h-[38px] border border-slate-200 rounded-xl px-3 bg-white focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                               value={row?.platform || ""}
                               onChange={(e) => {
                                 const v = e.target.value;
@@ -773,7 +787,7 @@ const AdminPage = ({ initialData, initialError }) => {
                           </td>
                           <td className="p-3">
                             <input
-                              className="w-full h-[38px] border border-[#ccc] rounded px-3"
+                              className="w-full h-[38px] border border-slate-200 rounded-xl px-3 bg-white focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                               value={row?.url || ""}
                               onChange={(e) => {
                                 const v = e.target.value;
@@ -787,7 +801,7 @@ const AdminPage = ({ initialData, initialError }) => {
                           </td>
                           <td className="p-3">
                             <input
-                              className="w-full h-[38px] border border-[#ccc] rounded px-3"
+                              className="w-full h-[38px] border border-slate-200 rounded-xl px-3 bg-white focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                               value={row?.cover || ""}
                               onChange={(e) => {
                                 const v = e.target.value;
@@ -801,7 +815,7 @@ const AdminPage = ({ initialData, initialError }) => {
                           </td>
                           <td className="p-3">
                             <input
-                              className="w-full h-[38px] border border-[#ccc] rounded px-3"
+                              className="w-full h-[38px] border border-slate-200 rounded-xl px-3 bg-white focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
                               value={row?.description || ""}
                               onChange={(e) => {
                                 const v = e.target.value;
@@ -823,7 +837,7 @@ const AdminPage = ({ initialData, initialError }) => {
                                 onClick={() =>
                                   setTimeline((prev) => moveRow(prev || [], idx, idx - 1))
                                 }
-                                className="h-[34px] px-2 rounded border border-[#ddd] text-[12px] disabled:opacity-50"
+                                className="h-[34px] px-2 rounded-xl border border-slate-200 text-[12px] text-slate-700 hover:bg-slate-100 disabled:opacity-40 disabled:hover:bg-transparent"
                                 disabled={idx === 0}
                               >
                                 Yukarı
@@ -833,7 +847,7 @@ const AdminPage = ({ initialData, initialError }) => {
                                 onClick={() =>
                                   setTimeline((prev) => moveRow(prev || [], idx, idx + 1))
                                 }
-                                className="h-[34px] px-2 rounded border border-[#ddd] text-[12px] disabled:opacity-50"
+                                className="h-[34px] px-2 rounded-xl border border-slate-200 text-[12px] text-slate-700 hover:bg-slate-100 disabled:opacity-40 disabled:hover:bg-transparent"
                                 disabled={idx === (timeline || []).length - 1}
                               >
                                 Aşağı
@@ -847,7 +861,7 @@ const AdminPage = ({ initialData, initialError }) => {
                                     return next;
                                   })
                                 }
-                                className="h-[34px] px-2 rounded border border-[#ddd] text-[12px] hover:bg-[#fff5f5]"
+                                className="h-[34px] px-2 rounded-xl border border-slate-200 text-[12px] text-rose-700 hover:bg-rose-50"
                               >
                                 Sil
                               </button>
@@ -870,17 +884,17 @@ const AdminPage = ({ initialData, initialError }) => {
           </div>
         </div>
 
-        <div className="mt-4 flex items-center justify-between gap-3">
+        <div className="mt-5 flex items-center justify-between gap-3">
           <button
             type="button"
             onClick={handleSave}
             disabled={saving}
-            className="h-[42px] px-5 rounded bg-[#111] text-white font-medium disabled:opacity-60"
+            className="h-[42px] px-5 rounded-xl bg-slate-900 text-white font-medium hover:bg-slate-800 disabled:opacity-60 disabled:hover:bg-slate-900 transition-colors shadow-sm"
           >
             {saving ? "Kaydediliyor..." : "Kaydet"}
           </button>
           {message ? (
-            <p className="text-[14px] text-[#333]">{message}</p>
+            <p className="text-[14px] text-slate-700">{message}</p>
           ) : (
             <div />
           )}
